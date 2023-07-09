@@ -1,82 +1,79 @@
 ---
+## /* vim: set ft=yaml tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab autoindent: */
+
 # TODO:
 # Fix: Check if mailserver is ready, as Test mail will only work,
 # if msmtp is setup after the mailserver is already configured
 
-- name: Remove other MTAs.
+- name: "Remove other MTAs"
   ansible.builtin.apt:
     name: "{{ packages }}"
-    state: absent
+    state: "absent"
     autoremove: true
     purge: true
   vars:
     packages:
-      - exim4*
-      - postfix*
-      - sendmail*
-  tags:
-    - mail
+    - "exim4*"
+    - "postfix*"
+    - "sendmail*"
   when:
-    - msmtp_remove_mtas
-    - ansible_facts['os_family'] == "Debian"
+  - "msmtp_remove_mtas"
+  - "ansible_facts['os_family'] == 'Debian'"
 
-- name: Install msmtp and mailx on Debian.
-  ansible.builtin.apt:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
-      - msmtp-mta
-      - bsd-mailx
-  tags: mail
-  notify: Test mail
-  when: ansible_facts['os_family'] == "Debian"
+- name: "Install mSMTP and mailx on Debian"
+  ansible.builtin.package:
+    name:
+    - "msmtp"
+    - "msmtp-mta"
+    - "bsd-mailx"
+    - "mailutils"
+    state: "present"
+  notify: "Test mail"
+  when:
+  - "ansible_facts['os_family'] == 'Debian'"
 
-- name: Install msmtp and s-nail on Archlinux.
-  community.general.packaging.os.pacman:
-    name: "{{ packages }}"
-    state: present
-  vars:
-    packages:
-      - msmtp
-      - msmtp-mta
-      - s-nail
-  when: ansible_facts['os_family'] == "Archlinux"
+- name: "Install mSMTP and s-nail on Archlinux"
+  ansible.builtin.package:
+    name:
+    - "msmtp"
+    - "msmtp-mta"
+    - "s-nail"
+    state: "present"
+  notify: "Test mail"
+  when:
+  - "ansible_facts['os_family'] == 'Archlinux'"
 
-- name: Install msmtp and mailx on Alpine.
-  community.general.packaging.os.apk:
-    name: "{{ packages }}"
-    state: present
+- name: "Install mSMTP and mailx on Alpine"
+  ansible.builtin.package:
+    name:
+    - "msmtp"
+    - "mailx"
+    state: "present"
     update_cache: false
-  vars:
-    packages:
-      - msmtp
-      - mailx
-  when: ansible_facts['os_family'] == "Alpine"
+  notify: "Test mail"
+  when: "ansible_facts['os_family'] == 'Alpine'"
 
-- name: Overwrite busybox sendmail link to point to mSMTP.
+- name: "Overwrite busybox sendmail link to point to mSMTP"
   ansible.builtin.file:
-    src: /usr/bin/msmtp
-    dest: /usr/sbin/sendmail
-    state: link
-  when: ansible_facts['os_family'] == "Alpine"
+    src: "/usr/bin/msmtp"
+    dest: "/usr/sbin/sendmail"
+    state: "link"
+  when: "ansible_facts['os_family'] == 'Alpine'"
 
-- name: Copy mstprc conf file.
+- name: "Copy mSMTP configuration file"
   ansible.builtin.template:
-    src: msmtprc.j2
-    dest: /etc/msmtprc
+    src: "msmtprc.j2"
+    dest: "/etc/msmtprc"
     owner: "{{ msmtprc_owner }}"
     group: "{{ msmtprc_group }}"
     mode: "{{ msmtprc_mode }}"
-  tags: mail
-  notify: Test mail
+  notify: "Test mail"
 
-- name: Copy aliases conf file.
+- name: "Copy aliases file"
   ansible.builtin.template:
-    src: aliases.j2
-    dest: /etc/aliases
-    owner: root
-    group: root
-    mode: 0644
-  tags: mail
-  notify: Test mail
+    src: "aliases.j2"
+    dest: "/etc/aliases"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: "Test mail"

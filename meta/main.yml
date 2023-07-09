@@ -1,24 +1,26 @@
 ---
+## /* vim: set ft=yaml tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab autoindent: */
+
 galaxy_info:
-  role_name: msmtp_mailer
-  author: poppen
+  role_name: "msmtp"
+  author: "mireiawen"
   description: "Deploy msmtp mailer on Debian and Ubuntu"
-  min_ansible_version: '2.4'
-  license: Apache
+  min_ansible_version: "2.4"
+  license: "Apache"
   platforms:
-    - name: Debian
-      versions:
-        - buster
-        - bullseye
-    - name: Ubuntu
-      versions:
-        - bionic
-        - focal
-        - jammy
-    - name: Alpine
-      versions:
-        - all
+  - name: "Debian"
+    versions:
+    - "buster"
+    - "bullseye"
+  - name: "Ubuntu"
+    versions:
+    - "bionic"
+    - "focal"
+    - "jammy"
+  - name: "Alpine"
+    versions:
+    - "all"
   galaxy_tags:
-    - mail
-    - system
-    - networking
+  - "mail"
+  - "system"
+  - "networking"
