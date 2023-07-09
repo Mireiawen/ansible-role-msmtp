@@ -4,7 +4,8 @@
 msmtp_accounts:
 # Simple mail gateway that may work on local network;
 # don't trust this setup though
-- account: "mailgw"
+- name: "Local mail gateway"
+  account: "mailgw"
   host: "mail"
   port: 587
 
@@ -18,7 +19,8 @@ msmtp_accounts:
   password: "plain-text-password"
 
 # GMail example
-- account: "gmail"
+- name: "GMail"
+  account: "gmail"
   host: "smtp.gmail.com"
   port: 587
   auth: "on"
@@ -40,9 +42,13 @@ msmtp_logfile: "~/.msmtp.log"
 # @note: only msmtp_alias_default is required the rest is optional )
 msmtp_alias_default: "spam@example.tld"
 
-# Optional aliases for root and cron mails
+# Optional alias for root
 # msmtp_alias_root: "spam@example.tld"
-# msmtp_alias_cron: "spam@example.tld"
+
+# Optional aliases
+# msmtp_aliases:
+# - source: "cron"
+#   destination: "cron-spam@example.tld"
 
 ## Enable, after the the default smtp account is working
 msmtp_send_test_mail: false
@@ -58,6 +64,7 @@ msmtp_remove_mtas: false
 msmtp_set_from_header: false
 
 ## Permissions for the configuration file
+# @note: If the file isn't readable by user, they are unable to send mail
 msmtprc_owner: "root"
 msmtprc_group: "root"
-msmtprc_mode: "0640"
+msmtprc_mode: "0644"
