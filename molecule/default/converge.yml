@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+
+  pre_tasks:
+    - name: Update apt cache.
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 600
+      when: ansible_facts['os_family'] == 'Debian'
+
+  tasks:
+    - name: "Include poppen.msmtp_mailer"
+      ansible.builtin.include_role:
+        name: "poppen.msmtp_mailer"
