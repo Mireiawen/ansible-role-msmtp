@@ -1,10 +1,14 @@
 # {{ ansible_managed }}
-#### /etc/aliases
-#root mail
-root:  {{ msmtp_alias_root if msmtp_alias_root is defined else msmtp_alias_default }}
 
-#cron mail
-cron: {{ msmtp_alias_cron if msmtp_alias_cron is defined else msmtp_alias_default }}
+# Root alias
+root: {{ msmtp_alias_root if msmtp_alias_root is defined else msmtp_alias_default }}
+{% if msmtp_aliases is defined %}
 
-#default all other mails
-default: {{msmtp_alias_default}}
+# Aliases
+{% for msmtp_alias in msmtp_aliases %}
+{{ msmtp_alias.source }}: {{ msmtp_alias.destination }}
+{% endfor %}
+{% endif %}
+
+# Default alias
+default: {{ msmtp_alias_default }}

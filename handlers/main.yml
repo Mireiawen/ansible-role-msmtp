@@ -1,8 +1,8 @@
 ---
-# sending test mail using 'mail' command to root and test recipient
-- name: Test mail
-  ansible.builtin.shell: echo "Test mail from new/updated mSTMP\n\n $(uname -a)" | mail -s "Test mSMTP at $(hostname -f)" root "{{ msmtp_test_mail_recipient }}"
-  tags: mail
-  when: msmtp_send_test_mail
+# Sending test mail using 'mail' command to root and test recipient
+- name: "Test mail"
+  ansible.builtin.shell: "echo -n 'Test mail from new/updated mSTMP\n\n $(uname -a)' | mail -s 'Test mSMTP at $(hostname -f)' root '{{ msmtp_test_mail_recipient }}'"
+  tags: "mail"
+  when: "msmtp_send_test_mail"
   async: 30
   poll: 5
