@@ -1,26 +1,55 @@
 ---
-## /* vim: set ft=yaml tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab autoindent: */
+## /* vim: set tabstop=2 softtabstop=2 shiftwidth=2 expandtab smarttab autoindent: */
 
 galaxy_info:
-  role_name: "msmtp"
-  author: "mireiawen"
-  description: "Deploy msmtp mailer on Debian and Ubuntu"
-  min_ansible_version: "2.4"
-  license: "Apache"
+  namespace: 'mireiawen'
+  role_name: 'msmtp'
+  min_ansible_version: '7.1'
+
+  author: 'Mira "Mireiawen" Manninen'
+  description: 'Deploy msmtp mailer'
+  license: 'Apache'
+
   platforms:
-  - name: "Debian"
+  - name: 'Alpine'
     versions:
-    - "buster"
-    - "bullseye"
-  - name: "Ubuntu"
+    - 'all'
+  - name: 'ArchLinux'
     versions:
-    - "bionic"
-    - "focal"
-    - "jammy"
-  - name: "Alpine"
+    - 'all'
+  - name: 'Amazon Linux'
     versions:
-    - "all"
+    - '2'
+    - '2023'
+  - name: 'Debian'
+    versions:
+    # '11 Bullseye'
+    - 'bullseye'
+    # '12 Bookworm'
+    - 'bookworm'
+  - name: 'Fedora'
+    versions:
+    - '37'
+    - '38'
+  - name: 'OpenSUSE'
+    versions:
+    - '15.0'
+    - '15.1'
+    - '15.2'
+    - '15.3'
+  # RedHat Enterprise Linux
+  - name: 'EL'
+    versions:
+    - '8'
+  - name: 'Ubuntu'
+    versions:
+    # '22.04 Jammy'
+    - 'jammy'
+
   galaxy_tags:
-  - "mail"
-  - "system"
-  - "networking"
+  - 'linux'
+  - 'mail'
+  - 'system'
+  - 'networking'
+
+dependencies: []
