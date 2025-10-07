@@ -28,12 +28,12 @@ logfile "{{ msmtp_logfile }}"
 domain "{{ msmtp_domain }}"
 
 # Set the from header
-{% if (msmtp_set_from_header | default(true) %}
+{% if msmtp_set_from_header | default(true) %}
 set_from_header on
 {% else %}
 set_from_header off
 {% endif %}
-{% if (msmtp_set_allow_from_override | default(true) %}
+{% if msmtp_set_allow_from_override | default(true) %}
 set_from_header on
 {% else %}
 set_from_header off
