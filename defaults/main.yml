@@ -58,10 +58,14 @@ msmtp_test_mail_recipient: "spam@example.tld"
 msmtp_remove_mtas: false
 
 ## From header
-# - true to always add (or override any existing) From header
-# - false to never add (or alter an existing) From header
-# - `auto` to add a From header if one is not present
-msmtp_set_from_header: false
+# - true to always add From header
+# - false to never add From header
+msmtp_set_from_header: true
+
+## Allow the from header override
+# - true to allow rewriting of From header
+# - false to not allow rewriting of From header
+msmtp_allow_from_override: true
 
 ## Permissions for the configuration file
 # @note: If the file isn't readable by user, they are unable to send mail

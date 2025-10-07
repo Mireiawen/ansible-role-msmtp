@@ -6,7 +6,7 @@ galaxy_info:
   role_name: 'msmtp'
   min_ansible_version: '7.1'
 
-  author: 'Mira "Mireiawen" Manninen'
+  author: 'Aeris "Mireiawen" Manninen'
   description: 'Deploy msmtp mailer'
   license: 'Apache'
 
@@ -27,6 +27,8 @@ galaxy_info:
     - 'bullseye'
     # '12 Bookworm'
     - 'bookworm'
+    # '13 Trixie'
+    - 'trixie'
   - name: 'Fedora'
     versions:
     - '37'

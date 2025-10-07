@@ -28,14 +28,15 @@ logfile "{{ msmtp_logfile }}"
 domain "{{ msmtp_domain }}"
 
 # Set the from header
-{% if (msmtp_set_from_header is defined) and (msmtp_set_from_header != '') %}
-{% if msmtp_set_from_header == true %}
+{% if (msmtp_set_from_header | default(true) %}
 set_from_header on
-{% elif msmtp_set_from_header == false %}
-set_from_header off
 {% else %}
-set_from_header "{{ msmtp_set_from_header }}"
+set_from_header off
 {% endif %}
+{% if (msmtp_set_allow_from_override | default(true) %}
+set_from_header on
+{% else %}
+set_from_header off
 {% endif %}
 
 {% if msmtp_accounts is defined %}
@@ -47,6 +48,9 @@ port {{ msmtp_account.port | default('587') }}
 auth {{ msmtp_account.auth | default('') }}
 {% if msmtp_account.from is defined %}
 from "{{ msmtp_account.from }}"
+{% endif %}
+{% if msmtp_account.from_name is defined %}
+from_full_name "{{ msmtp_account.from_name }}"
 {% endif %}
 {% if msmtp_account.user is defined %}
 user "{{ msmtp_account.user }}"
