@@ -34,9 +34,9 @@ set_from_header on
 set_from_header off
 {% endif %}
 {% if msmtp_set_allow_from_override | default(true) %}
-set_from_header on
+allow_from_override on
 {% else %}
-set_from_header off
+allow_from_override off
 {% endif %}
 
 {% if msmtp_accounts is defined %}
